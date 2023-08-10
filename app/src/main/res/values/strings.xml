@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">AppShops</string>
+    <string name="sign_in">Sign in</string>
+    <string name="welcome_back">Welcome to back</string>
+    <string name="user_names">Hello, %s!</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">last name</string>
+    <string name="mail">Mail</string>
+    <string name="already_text">Already have an account?</string>
+    <string name="Forget_password">Forgets password?</string>
+    <string name="reset_password">Reset password</string>
+    <string name="info_reset">The link has been emailed to you</string>
+    <string name="login">Log in</string>
+    <string name="create_account">Create account</string>
+    <string name="Sign_in_with_Google">Sign in with Google</string>
+    <string name="password">Password</string>
+    <string name="password_confirm">Password confirm</string>
+</resources>
