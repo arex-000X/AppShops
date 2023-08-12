@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navgraph"
     app:startDestination="@id/fragmentAuth">
 
     <fragment
         android:id="@+id/fragmentAuth"
+        app:popUpToInclusive="true"
         android:name="com.example.appshops.authorization.fragments.FragmentAuth"
         android:label="FragmentAuth" >
         <action
@@ -37,45 +39,29 @@
     <fragment
         android:id="@+id/fragmentForgets"
         android:name="com.example.appshops.authorization.fragments.FragmentForgets"
-        android:label="FragmentForgets" />
+        android:label="FragmentForgets" >
+        <action
+            android:id="@+id/action_fragmentForgets_to_fragmentAuth"
+            app:destination="@id/fragmentAuth" />
+    </fragment>
     <fragment
         android:id="@+id/fragmentMain"
         android:name="com.example.appshops.main.fragments.FragmentMain"
-        android:label="FragmentMain" >
-        <action
-            android:id="@+id/action_fragmentMain_to_fragmentLikeScreen"
-            app:destination="@id/fragmentLikeScreen" />
-    </fragment>
+        android:label="FragmentMain" />
     <fragment
         android:id="@+id/fragmentLikeScreen"
         android:name="com.example.appshops.main.fragments.FragmentLikeScreen"
-        android:label="FragmentLikeScreen" >
-        <action
-            android:id="@+id/action_fragmentLikeScreen_to_fragmentShopScreen"
-            app:destination="@id/fragmentShopScreen" />
-    </fragment>
+        android:label="FragmentLikeScreen" />
     <fragment
         android:id="@+id/fragmentShopScreen"
         android:name="com.example.appshops.main.fragments.FragmentShopScreen"
-        android:label="FragmentShopScreen" >
-        <action
-            android:id="@+id/action_fragmentShopScreen_to_fragmentMessageScreen"
-            app:destination="@id/fragmentMessageScreen" />
-    </fragment>
+        android:label="FragmentShopScreen" />
     <fragment
         android:id="@+id/fragmentMessageScreen"
         android:name="com.example.appshops.main.fragments.FragmentMessageScreen"
-        android:label="FragmentMessageScreen" >
-        <action
-            android:id="@+id/action_fragmentMessageScreen_to_fragmentPersonScreen"
-            app:destination="@id/fragmentPersonScreen" />
-    </fragment>
+        android:label="FragmentMessageScreen" />
     <fragment
         android:id="@+id/fragmentPersonScreen"
         android:name="com.example.appshops.main.fragments.FragmentPersonScreen"
-        android:label="FragmentPersonScreen" >
-        <action
-            android:id="@+id/action_fragmentPersonScreen_to_fragmentMain"
-            app:destination="@id/fragmentMain" />
-    </fragment>
+        android:label="FragmentPersonScreen" />
 </navigation>

@@ -1,5 +1,6 @@
 package com.example.appshops.main.adapter
 
+import android.annotation.SuppressLint
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +21,7 @@ class AdapterRecyler : RecyclerView.Adapter<AdapterRecyler.ViewHolderMassager>()
 
 
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setUser(user: List<User>) {
         this.user = user
         notifyDataSetChanged()

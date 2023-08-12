@@ -5,8 +5,6 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import com.example.appshops.authorization.fragments.FragmentAuth
 import com.example.appshops.authorization.viewmodel.GlobaViewModel
 import com.example.appshops.main.fragments.FragmentMain
@@ -39,9 +37,12 @@ class MainActivity : AppCompatActivity(), ManagerFragments {
 
 
     override fun createMainFragment(fragment: Fragment) {
-        val navHostController = supportFragmentManager.findFragmentById(R.id.fragment_container_view) as NavHostFragment
-        val navController = navHostController.navController
-
+        val current = supportFragmentManager.findFragmentById(R.id.fragment_container_view)
+        if (current == null) {
+            supportFragmentManager.beginTransaction()
+                .add(R.id.fragment_container_view, fragment)
+                .commit()
+        }
     }
 
     override fun replaceFragment(fragment: Fragment, addToBackButton: Boolean) {
