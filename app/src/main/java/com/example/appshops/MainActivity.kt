@@ -50,6 +50,7 @@ class MainActivity : AppCompatActivity(), ManagerFragments {
         when (addToBackButton) {
             true -> addFragmentBackButton(fragment)
             false -> addFragment(fragment)
+
         }
 
 
@@ -80,7 +81,9 @@ class MainActivity : AppCompatActivity(), ManagerFragments {
             createMainFragment(createFragmentMain)
         }
     }
+companion object{
 
+}
 
 }
 

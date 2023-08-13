@@ -9,12 +9,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.appshops.R
 import com.example.appshops.manager.ManagerFragments
-import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class FragmentMain : Fragment() {
 
 
-    private lateinit var bottomMenu: BottomNavigationView
     private val managerFragments = context as ManagerFragments?
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,33 +39,7 @@ class FragmentMain : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initViews(view)
-        bottomMenu.setOnItemSelectedListener {
 
-            when (it.itemId) {
-                R.id.page_1 ->
-                    managerFragments?.replaceFragment(FragmentMain(), false)
-
-                R.id.page_2 ->
-                    managerFragments?.replaceFragment(FragmentLikeScreen(), false)
-
-                R.id.page_3 ->
-                    managerFragments?.replaceFragment(FragmentShopScreen(), false)
-
-                R.id.page_4 ->
-                    managerFragments?.replaceFragment(
-                        FragmentMessageScreen(),
-                        false
-                    )
-
-                R.id.page_5 ->
-                    managerFragments?.replaceFragment(
-                        FragmentPersonScreen(),
-                        false
-                    )
-            }
-            return@setOnItemSelectedListener true
-        }
     }
 
     override fun onDestroy() {
@@ -77,9 +49,7 @@ class FragmentMain : Fragment() {
 
 
 
-    fun initViews(view: View) {
-        bottomMenu = view.findViewById(R.id.bottomNav)
-    }
+
 
 }
 

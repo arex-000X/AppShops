@@ -62,7 +62,7 @@ class FragmentAuth : Fragment() {
             managerFragments?.replaceFragment(FragmentLogin(), true)
         }
         signIn.setOnClickListener {
-            managerFragments?.replaceFragment(FragmentCreatePass(), true)
+            managerFragments?.replaceFragment(FragmentCreatePass(),true)
             val userModel = User(
                 first_name = firstName.text.toString(),
                 last_name = lastName.text.toString(),

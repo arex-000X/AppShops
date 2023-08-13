@@ -2,7 +2,6 @@ package com.example.appshops.main.fragments
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +18,7 @@ class FragmentMessageScreen : Fragment() {
 
 
     private lateinit var recylerView: RecyclerView
+    private lateinit var adapterMassage: AdapterRecyler
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +36,6 @@ class FragmentMessageScreen : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = layoutInflater.inflate(R.layout.fragment_message_screen, container, false)
-        recylerView.layoutManager = LinearLayoutManager(context)
         return view
     }
 
@@ -44,13 +43,15 @@ class FragmentMessageScreen : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews(view)
-        val adapterMassage = AdapterRecyler()
+        recylerView.layoutManager = LinearLayoutManager(context)
         recylerView.adapter = adapterMassage
 
 
         val userArray = ArrayList<User>()
-        val user = User(id = 101, first_name = "Andrew", last_name = "Karaew", isOnline = true)
-        userArray.add(user)
+        for (i: Int in 1..30) {
+            val user = User(id = i, first_name = "Andrew", last_name = "Karaew", isOnline = true)
+            userArray.add(user)
+        }
         adapterMassage.setUser(userArray)
     }
 
