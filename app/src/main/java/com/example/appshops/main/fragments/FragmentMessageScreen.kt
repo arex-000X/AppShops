@@ -48,8 +48,8 @@ class FragmentMessageScreen : Fragment() {
 
         val userArray = ArrayList<User>()
         for (i in 1..30){
-            val user = User(id = 1, first_name = "Andrew", last_name = "Karaew", isOnline = true)
-            userArray.add(user)
+
+
         }
 
         adapterMassage.setUser(userArray)
