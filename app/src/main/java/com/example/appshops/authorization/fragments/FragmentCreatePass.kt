@@ -19,7 +19,6 @@ import com.example.appshops.manager.ManagerFragments
 import com.example.appshops.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import kotlin.random.Random
 
@@ -76,7 +75,6 @@ class FragmentCreatePass : Fragment() {
                 mail = userModel.mail,
                 isOnline = false
             )
-            databaseWrite(user)
         }
 
     }
@@ -119,11 +117,6 @@ class FragmentCreatePass : Fragment() {
 
     }
 
-    fun databaseWrite(user:User){
-        val database = Firebase.database
-        val myRef = database.getReference("user")
-        myRef.push().setValue(user)
-    }
 
 }
 
