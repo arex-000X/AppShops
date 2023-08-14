@@ -2,9 +2,9 @@ package com.example.appshops.manager
 
 import androidx.fragment.app.Fragment
 
-interface ManagerFragments {
-    fun createMainFragment(fragment: Fragment)
-    fun addFragment(fragment: Fragment)
-    fun addFragmentBackButton(fragment: Fragment)
-    fun replaceFragment(fragment: Fragment, addToBackButton: Boolean)
+interface   ManagerFragments {
+    fun createMainFragment(fragment: Fragment,container:Int)
+    fun addFragment(fragment: Fragment,container:Int)
+    fun addFragmentBackButton(fragment: Fragment,container:Int)
+    fun replaceFragment(fragment: Fragment, addToBackButton: Boolean,container:Int)
 }

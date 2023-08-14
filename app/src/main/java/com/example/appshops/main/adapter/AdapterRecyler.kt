@@ -17,7 +17,6 @@ class AdapterRecyler : RecyclerView.Adapter<AdapterRecyler.ViewHolderMassager>()
 
     private var user: List<User> = ArrayList()
 
-    var onClicklistener: OnClicklistener? = null
 
 
 
@@ -50,26 +49,23 @@ class AdapterRecyler : RecyclerView.Adapter<AdapterRecyler.ViewHolderMassager>()
 
         val drawable: Drawable? = ContextCompat.getDrawable(holder.itemView.context, isResursOnline)
         holder.statusUser.background = drawable
-        holder.itemView.setOnClickListener {
-            if (onClicklistener != null) {
-                onClicklistener?.onUserClickIte(user)
-            }
-        }
+
     }
 
 
     override fun getItemCount(): Int = user.size
 
 
-    interface OnClicklistener {
-        fun onUserClickIte(user: User)
+    interface OnClicklistener{
+        fun onUserClickIte(user:User)
     }
+
 
 
     inner class ViewHolderMassager(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         var userInfoView: TextView
-        var statusUser: TextView
+        var statusUser: View
 
         init {
             userInfoView = itemView.findViewById(R.id.userNameTitle_chat)

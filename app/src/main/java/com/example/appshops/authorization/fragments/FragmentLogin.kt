@@ -14,7 +14,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.appshops.R
 import com.example.appshops.authorization.viewmodel.AuthViewModel
-import com.example.appshops.main.fragments.FragmentMain
+import com.example.appshops.main.fragments.FragmentHost
 import com.example.appshops.manager.ManagerFragments
 
 class FragmentLogin : Fragment() {
@@ -66,7 +66,7 @@ class FragmentLogin : Fragment() {
             )
         }
         forgets_password.setOnClickListener {
-            managerFragments?.replaceFragment(FragmentForgets(), true)
+            managerFragments?.replaceFragment(FragmentForgets(), true,R.id.fragment_container_view)
 
         }
     }
@@ -74,7 +74,7 @@ class FragmentLogin : Fragment() {
     private fun upadateUI() {
         viewmodel.getUser().observe(viewLifecycleOwner, Observer {
             if (it != null) {
-                managerFragments?.replaceFragment(FragmentMain(),true)
+                managerFragments?.replaceFragment(FragmentHost(),false,R.id.fragment_container_view)
             }
         })
         viewmodel.getError().observe(viewLifecycleOwner, Observer {

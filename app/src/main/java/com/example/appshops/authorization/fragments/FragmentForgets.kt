@@ -48,7 +48,7 @@ class FragmentForgets: Fragment() {
         rest_btn.setOnClickListener {
             val mail = mail_reset.text
             viewmodel.resetPassword(mail.toString())
-            managerFragments?.replaceFragment(FragmentAuth(),false)
+            managerFragments?.replaceFragment(FragmentAuth(),false,R.id.fragment_container_view)
         }
     }
 

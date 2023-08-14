@@ -59,10 +59,10 @@ class FragmentAuth : Fragment() {
 
     private fun cliker(){
         logIn.setOnClickListener {
-            managerFragments?.replaceFragment(FragmentLogin(), true)
+            managerFragments?.replaceFragment(FragmentLogin(), true,R.id.fragment_container_view)
         }
         signIn.setOnClickListener {
-            managerFragments?.replaceFragment(FragmentCreatePass(), true)
+            managerFragments?.replaceFragment(FragmentCreatePass(),true,R.id.fragment_container_view)
             val userModel = User(
                 first_name = firstName.text.toString(),
                 last_name = lastName.text.toString(),

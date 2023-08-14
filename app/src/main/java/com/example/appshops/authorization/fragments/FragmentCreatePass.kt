@@ -76,7 +76,7 @@ class FragmentCreatePass : Fragment() {
     fun upadateUI() {
         viewmodel.getUser().observe(viewLifecycleOwner, Observer {
             if (it != null) {
-                managerFragment?.replaceFragment(FragmentMain(), true)
+                managerFragment?.replaceFragment(FragmentMain(),false,R.id.fragment_container_view)
             }
         })
         viewmodel.getError().observe(viewLifecycleOwner, Observer {
