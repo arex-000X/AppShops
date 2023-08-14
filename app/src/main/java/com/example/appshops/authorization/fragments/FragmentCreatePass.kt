@@ -14,12 +14,15 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.appshops.R
 import com.example.appshops.authorization.viewmodel.AuthViewModel
-import com.example.appshops.main.fragments.FragmentMain
+import com.example.appshops.main.fragments.FragmentHost
 import com.example.appshops.manager.ManagerFragments
 import com.example.appshops.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import kotlin.random.Random
+
 
 class FragmentCreatePass : Fragment() {
 
@@ -29,7 +32,6 @@ class FragmentCreatePass : Fragment() {
     private lateinit var passwordEditText: EditText
     private lateinit var createAccountButton: Button
     private lateinit var auth: FirebaseAuth
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         managerFragment = context as ManagerFragments
@@ -63,20 +65,31 @@ class FragmentCreatePass : Fragment() {
     private fun clicker() {
         val text = "${userModel.first_name},${userModel.last_name}"
         textViewUserNames.text = text
+
         userModel.password = passwordEditText.text
         createAccountButton.setOnClickListener {
             viewmodel.addUserFirebase(userModel)
-
+            val user = User(
+                id = Random(6000).nextInt(),
+                first_name = userModel.first_name,
+                last_name = userModel.last_name,
+                mail = userModel.mail,
+                isOnline = false
+            )
+            databaseWrite(user)
         }
 
     }
 
 
-
     fun upadateUI() {
         viewmodel.getUser().observe(viewLifecycleOwner, Observer {
             if (it != null) {
-                managerFragment?.replaceFragment(FragmentMain(),false,R.id.fragment_container_view)
+                managerFragment?.replaceFragment(
+                    FragmentHost(),
+                    false,
+                    R.id.fragment_container_view
+                )
             }
         })
         viewmodel.getError().observe(viewLifecycleOwner, Observer {
@@ -86,7 +99,6 @@ class FragmentCreatePass : Fragment() {
 
         })
     }
-
 
 
     fun initViews(view: View) {
@@ -107,6 +119,11 @@ class FragmentCreatePass : Fragment() {
 
     }
 
+    fun databaseWrite(user:User){
+        val database = Firebase.database
+        val myRef = database.getReference("user")
+        myRef.push().setValue(user)
+    }
 
 }
 

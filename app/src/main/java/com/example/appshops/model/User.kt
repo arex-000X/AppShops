@@ -9,5 +9,5 @@ data class User(
     var last_name: String = "",
     var mail: String = "",
     var password: Editable? = null,
-    var isOnline:Boolean = false,
+    var isOnline: Boolean = false,
 )

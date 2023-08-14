@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.appshops.authorization.fragments.FragmentAuth
 import com.example.appshops.authorization.viewmodel.GlobaViewModel
-import com.example.appshops.main.fragments.FragmentMain
+import com.example.appshops.main.fragments.FragmentHost
 import com.example.appshops.manager.ManagerFragments
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -16,7 +16,7 @@ import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity(), ManagerFragments {
     private val createFragmentAuth = FragmentAuth()
-    private val createFragmentMain = FragmentMain()
+    private val createFragmentHost = FragmentHost()
     lateinit var viewModel: GlobaViewModel
     private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,11 +74,12 @@ class MainActivity : AppCompatActivity(), ManagerFragments {
 
     override fun onStart() {
         super.onStart()
+        auth.signOut()
         val current = auth.currentUser
         if (current == null) {
             createMainFragment(createFragmentAuth, R.id.fragment_container_view)
         } else {
-            createMainFragment(createFragmentMain, R.id.fragment_container_view)
+            replaceFragment(createFragmentHost,false, R.id.fragment_container_view)
         }
     }
 

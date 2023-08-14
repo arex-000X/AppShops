@@ -17,7 +17,11 @@ class AdapterRecyler : RecyclerView.Adapter<AdapterRecyler.ViewHolderMassager>()
 
     private var user: List<User> = ArrayList()
 
+    private lateinit var onClikerListener:OnClicklistener
 
+    fun setOnClickItemListener(onClikerListener: OnClicklistener) {
+        this.onClikerListener = onClikerListener
+    }
 
 
     @SuppressLint("NotifyDataSetChanged")
@@ -50,7 +54,14 @@ class AdapterRecyler : RecyclerView.Adapter<AdapterRecyler.ViewHolderMassager>()
         val drawable: Drawable? = ContextCompat.getDrawable(holder.itemView.context, isResursOnline)
         holder.statusUser.background = drawable
 
-    }
+        holder.itemView.setOnClickListener{
+            if (onClikerListener != null) {
+                onClikerListener.onUserClickIte(user)
+            }
+        }
+
+        }
+
 
 
     override fun getItemCount(): Int = user.size
