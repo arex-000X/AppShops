@@ -20,7 +20,6 @@ import com.example.appshops.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import kotlin.random.Random
 
 
 class FragmentCreatePass : Fragment() {
@@ -68,13 +67,6 @@ class FragmentCreatePass : Fragment() {
         userModel.password = passwordEditText.text
         createAccountButton.setOnClickListener {
             viewmodel.addUserFirebase(userModel)
-            val user = User(
-                id = Random(6000).nextInt(),
-                first_name = userModel.first_name,
-                last_name = userModel.last_name,
-                mail = userModel.mail,
-                isOnline = false
-            )
         }
 
     }
