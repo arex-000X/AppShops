@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.example.appshops.R
 import com.example.appshops.main.adapter.AdapterRecyler
 import com.example.appshops.model.User
@@ -43,15 +42,16 @@ class FragmentMessageScreen : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews(view)
+        adapterMassage = AdapterRecyler()
         recylerView.layoutManager = LinearLayoutManager(context)
         recylerView.adapter = adapterMassage
 
-
         val userArray = ArrayList<User>()
-        for (i: Int in 1..30) {
-            val user = User(id = i, first_name = "Andrew", last_name = "Karaew", isOnline = true)
+        for (i in 1..30){
+            val user = User(id = 1, first_name = "Andrew", last_name = "Karaew", isOnline = true)
             userArray.add(user)
         }
+
         adapterMassage.setUser(userArray)
     }
 

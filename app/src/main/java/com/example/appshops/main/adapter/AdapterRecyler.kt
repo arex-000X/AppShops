@@ -65,7 +65,7 @@ class AdapterRecyler : RecyclerView.Adapter<AdapterRecyler.ViewHolderMassager>()
     inner class ViewHolderMassager(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         var userInfoView: TextView
-        var statusUser: TextView
+        var statusUser: View
 
         init {
             userInfoView = itemView.findViewById(R.id.userNameTitle_chat)

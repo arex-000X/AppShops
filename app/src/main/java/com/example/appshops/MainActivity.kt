@@ -39,13 +39,8 @@ class MainActivity : AppCompatActivity(), ManagerFragments {
     override fun createMainFragment(fragment: Fragment, container: Int) {
         val current = supportFragmentManager.findFragmentById(container)
         if (current == null) {
-            when (container) {
-                R.id.fragment_container_menu -> supportFragmentManager.beginTransaction()
-                    .replace(container, fragment).commit()
-
-                R.id.fragment_container_view -> supportFragmentManager.beginTransaction()
-                    .add(container, fragment).commit()
-            }
+            supportFragmentManager.beginTransaction()
+                .add(container, fragment).commit()
         }
     }
 
