@@ -36,38 +36,43 @@ class MainActivity : AppCompatActivity(), ManagerFragments {
     }
 
 
-    override fun createMainFragment(fragment: Fragment) {
-        val current = supportFragmentManager.findFragmentById(R.id.fragment_container_view)
+    override fun createMainFragment(fragment: Fragment, container: Int) {
+        val current = supportFragmentManager.findFragmentById(container)
         if (current == null) {
-            supportFragmentManager.beginTransaction()
-                .add(R.id.fragment_container_view, fragment)
-                .commit()
+            when (container) {
+                R.id.fragment_container_menu -> supportFragmentManager.beginTransaction()
+                    .replace(container, fragment).commit()
+
+                R.id.fragment_container_view -> supportFragmentManager.beginTransaction()
+                    .add(container, fragment).commit()
+            }
         }
     }
 
-    override fun replaceFragment(fragment: Fragment, addToBackButton: Boolean) {
+
+    override fun replaceFragment(fragment: Fragment, addToBackButton: Boolean, container: Int) {
 
         when (addToBackButton) {
-            true -> addFragmentBackButton(fragment)
-            false -> addFragment(fragment)
+            true -> addFragmentBackButton(fragment, container)
+            false -> addFragment(fragment, container)
 
         }
 
 
     }
 
-    override fun addFragment(fragment: Fragment) {
+    override fun addFragment(fragment: Fragment, container: Int) {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container_view, fragment)
+            .replace(container, fragment)
             .commit()
     }
 
     //Переключение фрагмента и добавление возможности откатится назад по стеку
-    override fun addFragmentBackButton(fragment: Fragment) {
+    override fun addFragmentBackButton(fragment: Fragment, container: Int) {
         var count = 0
         supportFragmentManager.beginTransaction()
             .addToBackStack("FragmentStack ${count++}")
-            .replace(R.id.fragment_container_view, fragment)
+            .replace(container, fragment)
             .commit()
     }
 
@@ -76,14 +81,15 @@ class MainActivity : AppCompatActivity(), ManagerFragments {
         super.onStart()
         val current = auth.currentUser
         if (current == null) {
-            createMainFragment(createFragmentAuth)
+            createMainFragment(createFragmentAuth, R.id.fragment_container_view)
         } else {
-            createMainFragment(createFragmentMain)
+            createMainFragment(createFragmentMain, R.id.fragment_container_view)
         }
     }
-companion object{
 
-}
+    companion object {
+
+    }
 
 }
 

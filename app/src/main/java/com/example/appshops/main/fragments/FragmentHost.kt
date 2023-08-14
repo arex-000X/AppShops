@@ -10,18 +10,18 @@ import com.example.appshops.R
 import com.example.appshops.manager.ManagerFragments
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class FragmentHost : Fragment(), ManagerFragments {
+class FragmentHost : Fragment() {
     private lateinit var bottomMenu: BottomNavigationView
+    private var managerFragment: ManagerFragments? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        createMainFragment(FragmentMain())
 
 
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-
+        managerFragment = context as ManagerFragments
 
     }
 
@@ -43,24 +43,36 @@ class FragmentHost : Fragment(), ManagerFragments {
 
             when (it.itemId) {
                 R.id.page_1 ->
-                    replaceFragment(FragmentMain(), false)
+                    managerFragment?.replaceFragment(
+                        FragmentMain(),
+                        false,
+                        R.id.fragment_container_menu
+                    )
 
                 R.id.page_2 ->
-                    replaceFragment(FragmentLikeScreen(), false)
+                    managerFragment?.replaceFragment(
+                        FragmentLikeScreen(),
+                        false,
+                        R.id.fragment_container_menu
+                    )
 
                 R.id.page_3 ->
-                    replaceFragment(FragmentShopScreen(), false)
+                    managerFragment?.replaceFragment(
+                        FragmentShopScreen(),
+                        false,
+                        R.id.fragment_container_menu
+                    )
 
                 R.id.page_4 ->
-                    replaceFragment(
+                    managerFragment?.replaceFragment(
                         FragmentMessageScreen(),
-                        false
+                        false, R.id.fragment_container_menu
                     )
 
                 R.id.page_5 ->
-                    replaceFragment(
+                    managerFragment?.replaceFragment(
                         FragmentPersonScreen(),
-                        false
+                        false, R.id.fragment_container_menu
                     )
             }
             return@setOnItemSelectedListener true
@@ -69,46 +81,12 @@ class FragmentHost : Fragment(), ManagerFragments {
 
     override fun onDestroy() {
         super.onDestroy()
+        managerFragment = null
     }
 
 
     fun initViews(view: View) {
         bottomMenu = view.findViewById(R.id.bottomNav)
-    }
-
-    override fun createMainFragment(fragment: Fragment) {
-        val current =
-            requireActivity().supportFragmentManager.findFragmentById(R.id.fragment_container_menu)
-        if (current == null) {
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container_menu, fragment)
-                .commit()
-        }
-    }
-
-    override fun replaceFragment(fragment: Fragment, addToBackButton: Boolean) {
-
-        when (addToBackButton) {
-            true -> addFragmentBackButton(fragment)
-            false -> addFragment(fragment)
-
-        }
-
-
-    }
-
-    override fun addFragment(fragment: Fragment) {
-        requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container_menu, fragment)
-            .commit()
-    }
-
-    override fun addFragmentBackButton(fragment: Fragment) {
-        var count = 0
-        requireActivity().supportFragmentManager.beginTransaction()
-            .addToBackStack("FragmentStack ${count++}")
-            .replace(R.id.fragment_container_menu, fragment)
-            .commit()
     }
 
 
