@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -50,6 +51,9 @@ class FragmentMessageScreen : Fragment() {
         recylerView.layoutManager = LinearLayoutManager(context)
         recylerView.adapter = adapterMassage
         viewModel.databaseRead()
+        viewModel.listUser.observe(viewLifecycleOwner, Observer {
+            adapterMassage.setUser(it)
+        })
         adapterMassage.setOnClickItemListener(object : AdapterRecyler.OnClicklistener {
             override fun onUserClickIte(user: User) {
                 Log.d("MessageScreen", "Onbclick")

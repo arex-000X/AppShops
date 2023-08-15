@@ -4,7 +4,7 @@ import android.text.Editable
 
 
 data class User(
-    var id: Int = 0,
+    var id: String? = null,
     var first_name: String = "",
     var last_name: String = "",
     var mail: String = "",

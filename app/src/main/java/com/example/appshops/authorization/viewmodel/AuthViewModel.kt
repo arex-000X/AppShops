@@ -9,7 +9,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import kotlin.random.Random
 
 
 class AuthViewModel constructor(application: Application) : AndroidViewModel(application) {
@@ -86,16 +85,16 @@ class AuthViewModel constructor(application: Application) : AndroidViewModel(app
     }
 
     fun databaseWrite(user: User) {
+        val database = Firebase.database
+        val myRef = database.getReference("user")
         val userModel = User(
-            id = Random(6000).nextInt(),
+            id = auth.uid ,
             first_name = user.first_name,
             last_name = user.last_name,
             mail = user.mail,
             isOnline = false
         )
-        val database = Firebase.database
-        val myRef = database.getReference("user")
-        myRef.push().setValue(userModel)
+        myRef.child(auth.uid.toString()).setValue(userModel)
     }
 
 }
