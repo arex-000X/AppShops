@@ -15,7 +15,8 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/userNameTitle_chats"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="@font/montserrat_semibold"
@@ -24,7 +25,7 @@
             tools:text="Andrew Karaev" />
 
         <View
-            android:id="@+id/status_user"
+            android:id="@+id/status_users"
             android:layout_width="12dp"
             android:layout_height="12dp"
             android:layout_margin="16dp"
@@ -32,38 +33,37 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/recyclerViewChats"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/editText"
+        app:layout_constraintBottom_toTopOf="@+id/inputSend"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/status_user_chat"
         tools:listitem="@layout/chat_item" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/inputSend"
         android:layout_width="0dp"
-        android:padding="16dp"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        tools:text=""
-        android:hint="Type your message"
+        android:hint="@string/type_your_message"
         android:inputType="textMultiLine"
+        android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintBottom_toTopOf=""
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/sendView"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        app:layout_constraintBottom_toBottomOf="@+id/editText"
-        app:layout_constraintEnd_toEndOf="@+id/editText"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/inputSend"
+        app:layout_constraintEnd_toEndOf="@+id/inputSend"
         app:layout_constraintHorizontal_bias="0.96"
-        app:layout_constraintStart_toStartOf="@+id/editText"
-        app:layout_constraintTop_toTopOf="@+id/editText"
+        app:layout_constraintStart_toStartOf="@+id/inputSend"
+        app:layout_constraintTop_toTopOf="@+id/inputSend"
         app:srcCompat="@android:drawable/ic_menu_send"
         app:tint="#4E55D7" />
 

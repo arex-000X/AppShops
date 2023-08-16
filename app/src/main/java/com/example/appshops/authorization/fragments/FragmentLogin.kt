@@ -74,6 +74,7 @@ class FragmentLogin : Fragment() {
     private fun upadateUI() {
         viewmodel.getUser().observe(viewLifecycleOwner, Observer {
             if (it != null) {
+                FragmentHost.currentUserId = it.uid
                 managerFragments?.replaceFragment(FragmentHost(),false,R.id.fragment_container_view)
             }
         })

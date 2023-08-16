@@ -82,11 +82,6 @@ class MainActivity : AppCompatActivity(), ManagerFragments {
             replaceFragment(createFragmentHost,false, R.id.fragment_container_view)
         }
     }
-
-    companion object {
-
-    }
-
 }
 
 

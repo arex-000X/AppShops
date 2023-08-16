@@ -2,7 +2,6 @@ package com.example.appshops.main.fragments
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.appshops.R
 import com.example.appshops.authorization.viewmodel.MainViewModel
 import com.example.appshops.main.adapter.AdapterRecyler
+import com.example.appshops.manager.ManagerFragments
 import com.example.appshops.model.User
 
 
@@ -23,6 +23,7 @@ class FragmentMessageScreen : Fragment() {
     private lateinit var recylerView: RecyclerView
     private lateinit var adapterMassage: AdapterRecyler
     lateinit var viewModel: MainViewModel
+    private var managerFragments:ManagerFragments? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -31,6 +32,7 @@ class FragmentMessageScreen : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        managerFragments = context as ManagerFragments
     }
 
     override fun onCreateView(
@@ -56,16 +58,21 @@ class FragmentMessageScreen : Fragment() {
         })
         adapterMassage.setOnClickItemListener(object : AdapterRecyler.OnClicklistener {
             override fun onUserClickIte(user: User) {
-                Log.d("MessageScreen", "Onbclick")
+                FragmentChat.contentFragment(currentUserId,user.id.toString())
+                managerFragments?.replaceFragment(FragmentChat(),true,R.id.fragment_container_view)
             }
         })
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        managerFragments = null
     }
 
     fun initViews(view: View) {
         recylerView = view.findViewById(R.id.recylerview)
+    }
+    companion object{
+        var currentUserId:String = ""
     }
 }

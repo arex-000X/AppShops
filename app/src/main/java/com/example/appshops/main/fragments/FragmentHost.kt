@@ -62,11 +62,13 @@ class FragmentHost : Fragment() {
                         R.id.fragment_container_menu
                     )
 
-                R.id.page_4 ->
+                R.id.page_4 -> {
+                    FragmentMessageScreen.currentUserId = currentUserId
                     managerFragment?.replaceFragment(
                         FragmentMessageScreen(),
                         false, R.id.fragment_container_menu
                     )
+                }
 
                 R.id.page_5 ->
                     managerFragment?.replaceFragment(
@@ -86,6 +88,10 @@ class FragmentHost : Fragment() {
 
     fun initViews(view: View) {
         bottomMenu = view.findViewById(R.id.bottomNav)
+    }
+
+    companion object {
+        var currentUserId: String = "current_id"
     }
 
 
