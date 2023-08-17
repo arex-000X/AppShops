@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appshops.R
-import com.example.appshops.model.Message
+import com.example.appshops.model.MessageModel
 
 
 const val VIEW_MY_CHAT = 100
@@ -14,9 +14,10 @@ const val VIEW_OTHER_CHAT = 101
 
 class AdapterMessage(private val currentResUserId: String) :
     RecyclerView.Adapter<AdapterMessage.MessageViewHolder>() {
-    var listMessage: List<Message> = ArrayList()
-    fun setMessage(list: List<Message>) {
-        listMessage = list
+    var listMessageModel: List<MessageModel> = ArrayList()
+    fun setMessage(list: List<MessageModel>) {
+        listMessageModel = list
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageViewHolder {
@@ -30,13 +31,13 @@ class AdapterMessage(private val currentResUserId: String) :
     }
 
     override fun onBindViewHolder(holder: MessageViewHolder, position: Int) {
-        val message: Message = listMessage.get(position)
-        holder.textMessage.text = message.text
+        val messageModel: MessageModel = listMessageModel.get(position)
+        holder.textMessage.text = messageModel.text
     }
 
     override fun getItemViewType(position: Int): Int {
-        val message: Message = listMessage.get(position)
-        if (message.sendId == currentResUserId) {
+        val messageModel: MessageModel = listMessageModel.get(position)
+        if (messageModel.sendId == currentResUserId) {
             return VIEW_MY_CHAT
         } else {
             return VIEW_OTHER_CHAT
@@ -44,7 +45,7 @@ class AdapterMessage(private val currentResUserId: String) :
 
     }
 
-    override fun getItemCount() = listMessage.size
+    override fun getItemCount() = listMessageModel.size
 
 
     inner class MessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

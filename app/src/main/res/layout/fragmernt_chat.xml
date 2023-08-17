@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context=".MainActivity"
     android:background="@color/white_custom">
 
     <androidx.appcompat.widget.Toolbar
@@ -60,6 +61,7 @@
         app:layout_constraintBottom_toTopOf="@+id/inputSend"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:adjustViewBounds="true"
         app:layout_constraintTop_toBottomOf="@+id/status_user_chat"
         tools:listitem="@layout/chat_item" />
 

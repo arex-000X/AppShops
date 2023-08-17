@@ -11,8 +11,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appshops.R
-import com.example.appshops.authorization.viewmodel.MainViewModel
 import com.example.appshops.main.adapter.AdapterRecyler
+import com.example.appshops.main.viewmodel.MainViewModel
 import com.example.appshops.manager.ManagerFragments
 import com.example.appshops.model.User
 
