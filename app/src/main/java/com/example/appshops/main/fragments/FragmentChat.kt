@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.appshops.R
 import com.example.appshops.authorization.viewmodel.MainViewModel
 import com.example.appshops.main.adapter.AdapterMessage
+import com.example.appshops.model.User
 import com.example.appshops.model.Message as Message1
 
 class FragmentChat : Fragment() {
@@ -48,24 +49,13 @@ class FragmentChat : Fragment() {
         iniViews(view)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         recylerview.layoutManager = LinearLayoutManager(context)
-        viewModel.userModel.observe(viewLifecycleOwner, Observer {
-            userNameTitle_chat.text = "${it.first_name},${it.last_name}"
-            var isResursOnline = 0
-            if (it.isOnline) {
-                isResursOnline = R.drawable.circle_green
-            } else
-                isResursOnline = R.drawable.circle_red
-
-            val drawable: Drawable? = ContextCompat.getDrawable(requireContext(), isResursOnline)
-            statUserView.background = drawable
-        })
         val messages = ArrayList<Message1>()
-        for (i in 1..10){
+        for (i in 1..10) {
             val message = Message1("test$i", currentId, currentOthersId)
             messages.add(message)
         }
-        for (i in 1..10){
-            val message = Message1("test$i", currentId, currentOthersId)
+        for (i in 1..10) {
+            val message = Message1("test$i", currentOthersId, currentId)
             messages.add(message)
         }
         val adapterMessage = AdapterMessage(currentId)
@@ -84,14 +74,14 @@ class FragmentChat : Fragment() {
         recylerview = view.findViewById(R.id.recyclerViewChats)
     }
 
-    companion object{
-       var currentId:String = "curent_id"
-       var currentOthersId:String = "curentUser_id"
-       fun contentFragment(currentId:String,currentOthersId:String){
-           this.currentId = currentId
-           this.currentOthersId = currentOthersId
+    companion object {
+        var currentId: String = "curent_id"
+        var currentOthersId: String = "curentUser_id"
+        fun contentFragment(currentId: String, currentOthersId: String) {
+            this.currentId = currentId
+            this.currentOthersId = currentOthersId
 
 
-       }
+        }
     }
 }

@@ -17,7 +17,6 @@ class MainViewModel : ViewModel() {
     private val database = Firebase.database
     private val myRef = database.getReference("user")
     var listUser: MutableLiveData<List<User>> = MutableLiveData()
-    var userModel: MutableLiveData<User> = MutableLiveData()
     fun databaseRead() {
 
         myRef.addValueEventListener(object : ValueEventListener {
@@ -27,9 +26,7 @@ class MainViewModel : ViewModel() {
                     val list = ArrayList<User>()
                     for (dataSnapshot in snapshot.children) {
                         val user: User? = dataSnapshot.getValue(User::class.java)
-
                         if (!user?.id.equals(userId.uid)) {
-                            user.also { userModel.value = it }
                             list.add(user as User)
                         }
                     }

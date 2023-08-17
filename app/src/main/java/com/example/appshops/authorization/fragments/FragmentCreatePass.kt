@@ -63,7 +63,6 @@ class FragmentCreatePass : Fragment() {
     private fun clicker() {
         val text = "${userModel.first_name},${userModel.last_name}"
         textViewUserNames.text = text
-
         userModel.password = passwordEditText.text
         createAccountButton.setOnClickListener {
             viewmodel.addUserFirebase(userModel)
