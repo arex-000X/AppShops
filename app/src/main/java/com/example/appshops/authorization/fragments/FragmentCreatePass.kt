@@ -14,12 +14,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.appshops.R
 import com.example.appshops.authorization.viewmodel.AuthViewModel
-import com.example.appshops.main.fragments.FragmentMain
+import com.example.appshops.main.fragments.FragmentHost
 import com.example.appshops.manager.ManagerFragments
 import com.example.appshops.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+
 
 class FragmentCreatePass : Fragment() {
 
@@ -29,7 +30,6 @@ class FragmentCreatePass : Fragment() {
     private lateinit var passwordEditText: EditText
     private lateinit var createAccountButton: Button
     private lateinit var auth: FirebaseAuth
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         managerFragment = context as ManagerFragments
@@ -66,17 +66,19 @@ class FragmentCreatePass : Fragment() {
         userModel.password = passwordEditText.text
         createAccountButton.setOnClickListener {
             viewmodel.addUserFirebase(userModel)
-
         }
 
     }
 
 
-
     fun upadateUI() {
         viewmodel.getUser().observe(viewLifecycleOwner, Observer {
             if (it != null) {
-                managerFragment?.replaceFragment(FragmentMain(),false,R.id.fragment_container_view)
+                managerFragment?.replaceFragment(
+                    FragmentHost(),
+                    false,
+                    R.id.fragment_container_view
+                )
             }
         })
         viewmodel.getError().observe(viewLifecycleOwner, Observer {
@@ -86,7 +88,6 @@ class FragmentCreatePass : Fragment() {
 
         })
     }
-
 
 
     fun initViews(view: View) {

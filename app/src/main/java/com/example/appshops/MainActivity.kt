@@ -1,13 +1,12 @@
 package com.example.appshops
 
 import android.os.Bundle
-import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.appshops.authorization.fragments.FragmentAuth
-import com.example.appshops.authorization.viewmodel.GlobaViewModel
-import com.example.appshops.main.fragments.FragmentMain
+import com.example.appshops.main.fragments.FragmentHost
+import com.example.appshops.main.viewmodel.GlobalViewModel
 import com.example.appshops.manager.ManagerFragments
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -16,21 +15,19 @@ import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity(), ManagerFragments {
     private val createFragmentAuth = FragmentAuth()
-    private val createFragmentMain = FragmentMain()
-    lateinit var viewModel: GlobaViewModel
+    private val createFragmentHost = FragmentHost()
     private lateinit var auth: FirebaseAuth
+    lateinit var viewModel:GlobalViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(this).get(GlobalViewModel::class.java)
         auth = Firebase.auth
         setContentView(R.layout.activity_main)
-        viewModel = ViewModelProvider(this).get(GlobaViewModel::class.java)
-        val fragmentManager = supportFragmentManager
-        viewModel
         //Реализация прозрачного статус бара-------------------------------------
-        window.setFlags(
+            /*window.setFlags(
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        )
+        )*/
         //-----------------------------------------------------------------------
 
     }
@@ -71,21 +68,26 @@ class MainActivity : AppCompatActivity(), ManagerFragments {
             .commit()
     }
 
+    override fun onPause() {
+        super.onPause()
+        viewModel.setUserOnline(false)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.setUserOnline(true)
+    }
 
     override fun onStart() {
         super.onStart()
+        auth.signOut()
         val current = auth.currentUser
         if (current == null) {
             createMainFragment(createFragmentAuth, R.id.fragment_container_view)
         } else {
-            createMainFragment(createFragmentMain, R.id.fragment_container_view)
+            replaceFragment(createFragmentHost,false, R.id.fragment_container_view)
         }
     }
-
-    companion object {
-
-    }
-
 }
 
 

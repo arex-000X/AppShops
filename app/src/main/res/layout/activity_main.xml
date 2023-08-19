@@ -9,13 +9,13 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container_view"
-        android:layout_width="match_parent"
+        android:name="com.example.appshops.authorization.fragments.FragmentAuth"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:context=".MainActivity"
-        android:name="com.example.appshops.authorization.fragments.FragmentAuth"
         tools:layout="@layout/fragment_auth" />
 </androidx.constraintlayout.widget.ConstraintLayout>
