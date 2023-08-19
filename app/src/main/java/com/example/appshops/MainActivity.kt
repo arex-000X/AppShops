@@ -1,7 +1,6 @@
 package com.example.appshops
 
 import android.os.Bundle
-import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -25,10 +24,10 @@ class MainActivity : AppCompatActivity(), ManagerFragments {
         auth = Firebase.auth
         setContentView(R.layout.activity_main)
         //Реализация прозрачного статус бара-------------------------------------
-        window.setFlags(
+            /*window.setFlags(
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        )
+        )*/
         //-----------------------------------------------------------------------
 
     }

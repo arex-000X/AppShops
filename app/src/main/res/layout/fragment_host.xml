@@ -14,12 +14,13 @@
         app:layout_constraintTop_toTopOf="parent"
         android:name="com.example.appshops.main.fragments.FragmentMain"
         tools:layout="@layout/fragment_main" />
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNav"
         android:layout_width="0dp"
         android:layout_height="62dp"
-        app:itemIconTint="@color/gray"
         android:background="@drawable/navbar_background"
+        app:itemIconTint="@color/gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
