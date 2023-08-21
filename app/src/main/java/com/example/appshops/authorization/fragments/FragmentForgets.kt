@@ -1,6 +1,5 @@
 package com.example.appshops.authorization.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,20 +12,15 @@ import com.example.appshops.GlobalViewModel
 import com.example.appshops.GlobalViewModelFactory
 import com.example.appshops.R
 import com.example.appshops.authorization.viewmodel.AuthViewModel
-import com.example.appshops.manager.ManagerFragments
 
 class FragmentForgets: Fragment() {
 
     private lateinit var mail_reset:EditText
     private lateinit var rest_btn:Button
-    private var managerFragments:ManagerFragments? = null
     private lateinit var viewmodel:AuthViewModel
     lateinit var viewModelGlobal: GlobalViewModel
     lateinit var viewModelFactory: GlobalViewModelFactory
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        managerFragments = context as ManagerFragments
-    }
+
 
 
     override fun onCreateView(
@@ -53,15 +47,8 @@ class FragmentForgets: Fragment() {
         rest_btn.setOnClickListener {
             val mail = mail_reset.text
             viewmodel.resetPassword(mail.toString())
-            managerFragments?.replaceFragment(FragmentAuth(),false,R.id.fragment_container_view)
+            viewModelGlobal.replaceFragment(FragmentAuth(),false,R.id.fragment_container_view)
         }
-    }
-
-
-
-    override fun onDestroy() {
-        super.onDestroy()
-        managerFragments = null
     }
 
     fun initViews(view:View){

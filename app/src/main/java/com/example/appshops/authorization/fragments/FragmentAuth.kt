@@ -57,6 +57,7 @@ class FragmentAuth : Fragment() {
         }
         signIn.setOnClickListener {
             viewModelGlobal.replaceFragment(FragmentCreatePass(),true,R.id.fragment_container_view)
+
             val userModel = User(
                 first_name = firstName.text.toString(),
                 last_name = lastName.text.toString(),

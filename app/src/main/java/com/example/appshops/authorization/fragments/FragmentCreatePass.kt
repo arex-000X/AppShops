@@ -1,6 +1,5 @@
 package com.example.appshops.authorization.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,7 +16,6 @@ import com.example.appshops.GlobalViewModelFactory
 import com.example.appshops.R
 import com.example.appshops.authorization.viewmodel.AuthViewModel
 import com.example.appshops.main.fragments.FragmentHost
-import com.example.appshops.manager.ManagerFragments
 import com.example.appshops.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -26,7 +24,6 @@ import com.google.firebase.ktx.Firebase
 
 class FragmentCreatePass : Fragment() {
 
-    private var managerFragment: ManagerFragments? = null
     private lateinit var textViewUserNames: TextView
     private lateinit var viewmodel: AuthViewModel
     private lateinit var passwordEditText: EditText
@@ -34,10 +31,7 @@ class FragmentCreatePass : Fragment() {
     private lateinit var auth: FirebaseAuth
     lateinit var viewModelGlobal: GlobalViewModel
     lateinit var viewModelFactory: GlobalViewModelFactory
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        managerFragment = context as ManagerFragments
-    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,12 +54,6 @@ class FragmentCreatePass : Fragment() {
 
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        managerFragment = null
-    }
-
-
     private fun clicker() {
         val text = "${userModel.first_name},${userModel.last_name}"
         textViewUserNames.text = text
@@ -80,7 +68,7 @@ class FragmentCreatePass : Fragment() {
     fun upadateUI() {
         viewmodel.getUser().observe(viewLifecycleOwner, Observer {
             if (it != null) {
-                managerFragment?.replaceFragment(
+              viewModelGlobal.replaceFragment(
                     FragmentHost(),
                     false,
                     R.id.fragment_container_view

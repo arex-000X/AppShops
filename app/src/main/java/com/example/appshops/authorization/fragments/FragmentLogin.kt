@@ -60,7 +60,6 @@ class FragmentLogin : Fragment() {
         }
         forgets_password.setOnClickListener {
           viewModelGlobal.replaceFragment(FragmentForgets(), true,R.id.fragment_container_view)
-
         }
     }
 

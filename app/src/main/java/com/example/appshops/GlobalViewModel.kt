@@ -1,18 +1,17 @@
 package com.example.appshops
 
-import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.appshops.manager.ManagerFragments
 
 class GlobalViewModel(private val fragmentManager: FragmentManager) : ViewModel(),
     ManagerFragments {
+    var listfragment = MutableLiveData<List<Int>>()
 
-
-
-    fun setfragmentList(array:ArrayList<Int>){
-        Log.d("FragmentsList","Fragments ${array.size}")
+    fun setFragmentList(listfragment:List<Int>){
+        this.listfragment.value = listfragment
     }
 
 
