@@ -9,6 +9,8 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.appshops.GlobalViewModel
+import com.example.appshops.GlobalViewModelFactory
 import com.example.appshops.R
 import com.example.appshops.authorization.viewmodel.AuthViewModel
 import com.example.appshops.manager.ManagerFragments
@@ -19,7 +21,8 @@ class FragmentForgets: Fragment() {
     private lateinit var rest_btn:Button
     private var managerFragments:ManagerFragments? = null
     private lateinit var viewmodel:AuthViewModel
-
+    lateinit var viewModelGlobal: GlobalViewModel
+    lateinit var viewModelFactory: GlobalViewModelFactory
     override fun onAttach(context: Context) {
         super.onAttach(context)
         managerFragments = context as ManagerFragments
@@ -32,6 +35,8 @@ class FragmentForgets: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
        val view = layoutInflater.inflate(R.layout.fragment_forgets,container,false)
+        viewModelFactory = GlobalViewModelFactory(requireActivity().supportFragmentManager)
+        viewModelGlobal = ViewModelProvider(this,viewModelFactory).get(GlobalViewModel::class.java)
         viewmodel = ViewModelProvider(this).get(AuthViewModel::class.java)
         return view
     }

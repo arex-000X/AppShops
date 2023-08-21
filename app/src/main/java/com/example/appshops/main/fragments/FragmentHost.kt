@@ -1,28 +1,25 @@
 package com.example.appshops.main.fragments
 
-import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import com.example.appshops.GlobalViewModel
+import com.example.appshops.GlobalViewModelFactory
 import com.example.appshops.R
-import com.example.appshops.manager.ManagerFragments
+import com.example.appshops.main.viewmodel.MainViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationBarView
 
 class FragmentHost : Fragment() {
     private lateinit var bottomMenu: BottomNavigationView
-    private var managerFragment: ManagerFragments? = null
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        managerFragment = context as ManagerFragments
-
-    }
+    lateinit var viewModel:MainViewModel
+    lateinit var viewModelGlobal: GlobalViewModel
+    lateinit var viewModelFactory: GlobalViewModelFactory
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,6 +27,9 @@ class FragmentHost : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = layoutInflater.inflate(R.layout.fragment_host, container, false)
+        viewModelFactory = GlobalViewModelFactory(requireActivity().supportFragmentManager)
+        viewModelGlobal = ViewModelProvider(this,viewModelFactory).get(GlobalViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         return view
     }
 
@@ -38,58 +38,65 @@ class FragmentHost : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initViews(view)
 
-        bottomMenu.setOnItemSelectedListener {
+        bottomMenu.setOnItemSelectedListener(object: NavigationBarView.OnItemSelectedListener {
+            override fun onNavigationItemSelected(item: MenuItem): Boolean {
+                when (item.itemId) {
+                    R.id.page_1 ->
+                        viewModelGlobal.replaceFragment(
+                            FragmentMain(),
+                            false,
+                            R.id.fragment_container_menu
+                        )
 
-            when (it.itemId) {
-                R.id.page_1 ->
-                    managerFragment?.replaceFragment(
-                        FragmentMain(),
-                        false,
-                        R.id.fragment_container_menu
-                    )
+                    R.id.page_2 ->
+                        viewModelGlobal.replaceFragment(
+                            FragmentLikeScreen(),
+                            false,
+                            R.id.fragment_container_menu
+                        )
 
-                R.id.page_2 ->
-                    managerFragment?.replaceFragment(
-                        FragmentLikeScreen(),
-                        false,
-                        R.id.fragment_container_menu
-                    )
+                    R.id.page_3 ->
+                        viewModelGlobal.replaceFragment(
+                            FragmentShopScreen(),
+                            false,
+                            R.id.fragment_container_menu
+                        )
 
-                R.id.page_3 ->
-                    managerFragment?.replaceFragment(
-                        FragmentShopScreen(),
-                        false,
-                        R.id.fragment_container_menu
-                    )
+                    R.id.page_4 -> {
+                        FragmentMessageScreen.currentUserId = currentUserId
+                        viewModelGlobal.replaceFragment(
+                            FragmentMessageScreen(),
+                            false, R.id.fragment_container_menu
+                        )
+                    }
 
-                R.id.page_4 -> {
-                    FragmentMessageScreen.currentUserId = currentUserId
-                    managerFragment?.replaceFragment(
-                        FragmentMessageScreen(),
-                        false, R.id.fragment_container_menu
-                    )
+                    R.id.page_5 ->
+                        viewModelGlobal.replaceFragment(
+                            FragmentPersonScreen(),
+                            false, R.id.fragment_container_menu
+                        )
                 }
-
-                R.id.page_5 ->
-                    managerFragment?.replaceFragment(
-                        FragmentPersonScreen(),
-                        false, R.id.fragment_container_menu
-                    )
+                return true
             }
-            return@setOnItemSelectedListener true
-        }
+
+
+        })
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        managerFragment = null
+    override fun onStop() {
+        super.onStop()
+        viewModel.setUserOnline(false)
+        Log.d("MainActivityCycle","FragentHost: onStop")
     }
 
-
+    override fun onResume() {
+        super.onResume()
+        viewModel.setUserOnline(true)
+        Log.d("MainActivityCycle","FragentHost: onResume")
+    }
     fun initViews(view: View) {
         bottomMenu = view.findViewById(R.id.bottomNav)
     }
-
     companion object {
         var currentUserId: String = "current_id"
     }

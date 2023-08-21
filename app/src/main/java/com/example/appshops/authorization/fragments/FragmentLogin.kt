@@ -1,6 +1,5 @@
 package com.example.appshops.authorization.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,25 +11,23 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.appshops.GlobalViewModel
+import com.example.appshops.GlobalViewModelFactory
 import com.example.appshops.R
 import com.example.appshops.authorization.viewmodel.AuthViewModel
 import com.example.appshops.main.fragments.FragmentHost
-import com.example.appshops.manager.ManagerFragments
 
 class FragmentLogin : Fragment() {
 
-    private var managerFragments: ManagerFragments? = null
     private lateinit var mailEditText: EditText
     private lateinit var passEditText: EditText
     private lateinit var login_btn: Button
     private lateinit var viewmodel: AuthViewModel
     private lateinit var forgets_password: TextView
+    lateinit var viewModelGlobal: GlobalViewModel
+    lateinit var viewModelFactory: GlobalViewModelFactory
 
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        managerFragments = context as ManagerFragments
-    }
 
 
     override fun onCreateView(
@@ -39,6 +36,8 @@ class FragmentLogin : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = layoutInflater.inflate(R.layout.fragment_login, container, false)
+        viewModelFactory = GlobalViewModelFactory(requireActivity().supportFragmentManager)
+        viewModelGlobal = ViewModelProvider(this,viewModelFactory).get(GlobalViewModel::class.java)
         initView(view)
         viewmodel = ViewModelProvider(this).get(AuthViewModel::class.java)
         return view
@@ -52,12 +51,6 @@ class FragmentLogin : Fragment() {
 
     }
 
-
-    override fun onDestroy() {
-        super.onDestroy()
-        managerFragments = null
-    }
-
     private fun clicker() {
         login_btn.setOnClickListener {
             viewmodel.signIn(
@@ -66,7 +59,7 @@ class FragmentLogin : Fragment() {
             )
         }
         forgets_password.setOnClickListener {
-            managerFragments?.replaceFragment(FragmentForgets(), true,R.id.fragment_container_view)
+          viewModelGlobal.replaceFragment(FragmentForgets(), true,R.id.fragment_container_view)
 
         }
     }
@@ -75,7 +68,8 @@ class FragmentLogin : Fragment() {
         viewmodel.getUser().observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 FragmentHost.currentUserId = it.uid
-                managerFragments?.replaceFragment(FragmentHost(),false,R.id.fragment_container_view)
+                viewModelGlobal.replaceFragment(FragmentHost(),false,R.id.fragment_container_view)
+
             }
         })
         viewmodel.getError().observe(viewLifecycleOwner, Observer {

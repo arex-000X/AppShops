@@ -33,9 +33,6 @@ class FragmentLikeScreen:Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initViews(view)
 
-
-
-
     }
 
     override fun onDestroy() {

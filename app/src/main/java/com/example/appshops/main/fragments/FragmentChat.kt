@@ -71,6 +71,7 @@ class FragmentChat : Fragment() {
 
 
 
+
     fun observeVieModel() {
         viewModel.getMessage().observe(viewLifecycleOwner, Observer {
 

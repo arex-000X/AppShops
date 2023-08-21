@@ -12,6 +12,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.appshops.GlobalViewModel
+import com.example.appshops.GlobalViewModelFactory
 import com.example.appshops.R
 import com.example.appshops.authorization.viewmodel.AuthViewModel
 import com.example.appshops.main.fragments.FragmentHost
@@ -30,6 +32,8 @@ class FragmentCreatePass : Fragment() {
     private lateinit var passwordEditText: EditText
     private lateinit var createAccountButton: Button
     private lateinit var auth: FirebaseAuth
+    lateinit var viewModelGlobal: GlobalViewModel
+    lateinit var viewModelFactory: GlobalViewModelFactory
     override fun onAttach(context: Context) {
         super.onAttach(context)
         managerFragment = context as ManagerFragments
@@ -41,6 +45,8 @@ class FragmentCreatePass : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = layoutInflater.inflate(R.layout.registration_password, container, false)
+        viewModelFactory = GlobalViewModelFactory(requireActivity().supportFragmentManager)
+        viewModelGlobal = ViewModelProvider(this,viewModelFactory).get(GlobalViewModel::class.java)
         initViews(view)
         auth = Firebase.auth
         viewmodel = ViewModelProvider(this).get(AuthViewModel::class.java)

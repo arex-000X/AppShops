@@ -43,7 +43,13 @@ class MainViewModel : ViewModel() {
             }
 
         })
-    }
 
+    }
+    fun setUserOnline(isOnline: Boolean) {
+        val current = auth.uid
+        if (current != null) {
+            myRef.child(current.toString()).child("online").setValue(isOnline)
+        }
+    }
 
 }
