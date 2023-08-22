@@ -14,13 +14,16 @@ import com.example.appshops.R
 import com.example.appshops.main.viewmodel.MainViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class FragmentHost : Fragment() {
     private lateinit var bottomMenu: BottomNavigationView
     lateinit var viewModel:MainViewModel
+    private lateinit var auth: FirebaseAuth
     lateinit var viewModelGlobal: GlobalViewModel
     lateinit var viewModelFactory: GlobalViewModelFactory
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -37,7 +40,7 @@ class FragmentHost : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews(view)
-
+        auth = Firebase.auth
         bottomMenu.setOnItemSelectedListener(object: NavigationBarView.OnItemSelectedListener {
             override fun onNavigationItemSelected(item: MenuItem): Boolean {
                 when (item.itemId) {
@@ -63,7 +66,7 @@ class FragmentHost : Fragment() {
                         )
 
                     R.id.page_4 -> {
-                        FragmentMessageScreen.currentUserId = currentUserId
+                        FragmentMessageScreen.currentUserId = auth.uid.toString()
                         viewModelGlobal.replaceFragment(
                             FragmentMessageScreen(),
                             false, R.id.fragment_container_menu
@@ -98,7 +101,7 @@ class FragmentHost : Fragment() {
         bottomMenu = view.findViewById(R.id.bottomNav)
     }
     companion object {
-        var currentUserId: String = "current_id"
+        var currentUserId: String = "curren_Id"
     }
 
 
