@@ -7,4 +7,5 @@ interface   ManagerFragments {
     fun addFragment(fragment: Fragment,container:Int)
     fun addFragmentBackButton(fragment: Fragment,container:Int)
     fun replaceFragment(fragment: Fragment, addToBackButton: Boolean,container:Int)
+    fun remove(fragment: Fragment)
 }

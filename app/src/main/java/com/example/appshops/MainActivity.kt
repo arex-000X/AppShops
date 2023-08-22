@@ -10,7 +10,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
 
-class MainActivity : AppCompatActivity(){
+class MainActivity : AppCompatActivity() {
     private val createFragmentAuth = FragmentAuth()
     private val createFragmentHost = FragmentHost()
     private lateinit var auth: FirebaseAuth
@@ -19,25 +19,24 @@ class MainActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModelFactory = GlobalViewModelFactory(supportFragmentManager)
-        viewModel = ViewModelProvider(this,viewModelFactory).get(GlobalViewModel::class.java)
-        viewModel.createMainFragment(createFragmentAuth,R.id.fragment_container_view)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(GlobalViewModel::class.java)
         auth = Firebase.auth
         setContentView(R.layout.activity_main)
         //Реализация прозрачного статус бара-------------------------------------
-            /*window.setFlags(
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        )*/
+        /*window.setFlags(
+        WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+        WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+    )*/
         //-----------------------------------------------------------------------
     }
+
     override fun onStart() {
         super.onStart()
-        auth.signOut()
         val current = auth.currentUser
         if (current == null) {
-           viewModel.createMainFragment(createFragmentAuth, R.id.fragment_container_view)
+            viewModel.createMainFragment(createFragmentAuth, R.id.fragment_container_view)
         } else {
-            viewModel.replaceFragment(createFragmentHost,false, R.id.fragment_container_view)
+            viewModel.createMainFragment(createFragmentHost, R.id.fragment_container_view)
         }
     }
 }

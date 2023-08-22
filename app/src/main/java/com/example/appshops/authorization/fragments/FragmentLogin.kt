@@ -16,6 +16,7 @@ import com.example.appshops.GlobalViewModelFactory
 import com.example.appshops.R
 import com.example.appshops.authorization.viewmodel.AuthViewModel
 import com.example.appshops.main.fragments.FragmentHost
+import com.example.appshops.main.viewmodel.MainViewModel
 
 class FragmentLogin : Fragment() {
 
@@ -23,10 +24,10 @@ class FragmentLogin : Fragment() {
     private lateinit var passEditText: EditText
     private lateinit var login_btn: Button
     private lateinit var viewmodel: AuthViewModel
+    private lateinit var viewmodelMain: MainViewModel
     private lateinit var forgets_password: TextView
     lateinit var viewModelGlobal: GlobalViewModel
     lateinit var viewModelFactory: GlobalViewModelFactory
-
 
 
 
@@ -38,6 +39,7 @@ class FragmentLogin : Fragment() {
         val view = layoutInflater.inflate(R.layout.fragment_login, container, false)
         viewModelFactory = GlobalViewModelFactory(requireActivity().supportFragmentManager)
         viewModelGlobal = ViewModelProvider(this,viewModelFactory).get(GlobalViewModel::class.java)
+        viewmodelMain = ViewModelProvider(this).get(MainViewModel::class.java)
         initView(view)
         viewmodel = ViewModelProvider(this).get(AuthViewModel::class.java)
         return view
@@ -67,8 +69,8 @@ class FragmentLogin : Fragment() {
         viewmodel.getUser().observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 FragmentHost.currentUserId = it.uid
+                requireActivity().supportFragmentManager.popBackStack()
                 viewModelGlobal.replaceFragment(FragmentHost(),false,R.id.fragment_container_view)
-
             }
         })
         viewmodel.getError().observe(viewLifecycleOwner, Observer {

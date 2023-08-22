@@ -13,8 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppShops"
         tools:targetApi="31">
-        <activity android:name=".HostActivity"
-            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">
