@@ -1,6 +1,5 @@
 package com.example.appshops.authorization.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,27 +8,26 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import com.example.appshops.GlobalViewModel
+import com.example.appshops.GlobalViewModelFactory
 import com.example.appshops.R
-import com.example.appshops.manager.ManagerFragments
 import com.example.appshops.model.User
 
 class FragmentAuth : Fragment() {
 
-    private var managerFragments: ManagerFragments? = null
+
 
     private lateinit var firstName: EditText
     private lateinit var lastName: EditText
     private lateinit var mail: EditText
     private lateinit var signIn: Button
     private lateinit var logIn: TextView
+    lateinit var viewModelGlobal: GlobalViewModel
+    lateinit var viewModelFactory: GlobalViewModelFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        managerFragments = context as ManagerFragments
     }
 
 
@@ -40,6 +38,8 @@ class FragmentAuth : Fragment() {
     ): View? {
 
         val view = inflater.inflate(R.layout.fragment_auth, container, false)
+        viewModelFactory = GlobalViewModelFactory(requireActivity().supportFragmentManager)
+        viewModelGlobal = ViewModelProvider(this,viewModelFactory).get(GlobalViewModel::class.java)
         initViews(view)
         return view
     }
@@ -51,18 +51,14 @@ class FragmentAuth : Fragment() {
 
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        managerFragments = null
-    }
-
-
     private fun cliker(){
         logIn.setOnClickListener {
-            managerFragments?.replaceFragment(FragmentLogin(), true,R.id.fragment_container_view)
+            viewModelGlobal.replaceFragment(FragmentLogin(), true,R.id.fragment_container_view)
         }
         signIn.setOnClickListener {
-            managerFragments?.replaceFragment(FragmentCreatePass(),true,R.id.fragment_container_view)
+            viewModelGlobal.replaceFragment(FragmentCreatePass(),true,R.id.fragment_container_view)
+
+
             val userModel = User(
                 first_name = firstName.text.toString(),
                 last_name = lastName.text.toString(),
