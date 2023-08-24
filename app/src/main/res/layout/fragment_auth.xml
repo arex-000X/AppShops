@@ -25,7 +25,7 @@
         android:padding="30dp"
         android:text="@string/sign_in"
         android:textColor="@color/black_custom"
-        android:textSize="26dp" />
+        android:textSize="26sp" />
     <EditText
         android:id="@+id/first_name"
         android:layout_width="match_parent"

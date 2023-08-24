@@ -7,8 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.appshops.R
+import com.example.appshops.main.adapter.AdapterRecylerPerson
 
 class FragmentPersonScreen:Fragment() {
+
+
+   lateinit var adapterRecylerPerson:AdapterRecylerPerson
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -30,7 +35,12 @@ class FragmentPersonScreen:Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews(view)
-
+        val menu = ArrayList<String>()
+        menu.add("Shopping cart")
+        menu.add("setting")
+        menu.add("help")
+        menu.add("Log out")
+        adapterRecylerPerson.menu(menu)
 
 
 
