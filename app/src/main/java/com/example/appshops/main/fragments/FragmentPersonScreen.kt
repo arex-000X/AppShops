@@ -1,6 +1,5 @@
 package com.example.appshops.main.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,13 +15,9 @@ class FragmentPersonScreen : Fragment() {
 
     lateinit var adapterRecylerPerson: AdapterRecylerPerson
     lateinit var recylerViewPrson: RecyclerView
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-    }
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,9 +44,7 @@ class FragmentPersonScreen : Fragment() {
 
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-    }
+
 
 
     fun initViews(view: View) {
