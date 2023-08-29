@@ -12,6 +12,12 @@ class AdapterRecylerPerson : RecyclerView.Adapter<AdapterRecylerPerson.ViewHolde
 
     var listMenu = ArrayList<String>()
 
+    private  lateinit var  onClickListenerItem:OnClickListenerItem
+
+    fun setOnClickListenerItem( onClickListenerItem:OnClickListenerItem){
+        this.onClickListenerItem = onClickListenerItem
+    }
+
     fun menu(listMenu: ArrayList<String>) {
         this.listMenu = listMenu
     }
@@ -63,10 +69,21 @@ class AdapterRecylerPerson : RecyclerView.Adapter<AdapterRecylerPerson.ViewHolde
         }
 
 
+        holder.itemView.setOnClickListener {
+            if (onClickListenerItem != null) {
+                onClickListenerItem.onClick(position)
+            }
+        }
+
+
     }
 
     override fun getItemCount() = listMenu.size
 
+
+    interface OnClickListenerItem{
+        fun onClick(position: Int)
+    }
 
     inner class ViewHolderPerson(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val textItem: TextView

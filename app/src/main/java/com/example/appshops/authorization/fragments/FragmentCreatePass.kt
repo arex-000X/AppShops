@@ -68,6 +68,7 @@ class FragmentCreatePass : Fragment() {
     fun upadateUI() {
         viewmodel.getUser().observe(viewLifecycleOwner, Observer {
             if (it != null) {
+                requireActivity().supportFragmentManager.popBackStack()
               viewModelGlobal.replaceFragment(
                     FragmentHost(),
                     false,

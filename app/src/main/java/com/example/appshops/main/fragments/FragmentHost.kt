@@ -73,11 +73,13 @@ class FragmentHost : Fragment() {
                         )
                     }
 
-                    R.id.page_5 ->
+                    R.id.page_5 ->{
+                        FragmentPersonScreen.auth = auth
                         viewModelGlobal.replaceFragment(
                             FragmentPersonScreen(),
                             false, R.id.fragment_container_menu
                         )
+                }
                 }
                 return true
             }
